@@ -33,7 +33,10 @@ class BarrierController extends Controller
             $gateStatus = 'Open';
             $sireneStatus = 'Off';
 
-            $this->createParkingEntry($request);
+            $parkingEntry = $this->createParkingEntry($request);
+            if (isset($parkingEntry['id_parkir'])) {
+                $response['TicketUrl'] = route('print.ticket', ['id' => $parkingEntry['id_parkir'], 'timestamp' => now()->timestamp]);
+            }
         } elseif ($clientType == 122 && $request->input('ActType') == 2) {
             $gateStatus = 'Closed';
             $sireneStatus = 'On';
@@ -89,11 +92,23 @@ class BarrierController extends Controller
             'tgl_masuk' => now()->toDateTimeString(),
             'foto_masuk' => $request->input('foto_masuk'),
         ]);
-
+    
         if ($response->successful()) {
-            $this->logAction(['message' => 'Parking entry created successfully'], $response->json(), $request->input('GateNo'));
+            return $response->json();
         } else {
-            $this->logAction(['error' => 'Failed to create parking entry'], $response->json(), $request->input('GateNo'));
+            return ['error' => 'Failed to create parking entry'];
         }
+    }
+    
+    public function printTicket($id, $timestamp)
+    {
+        $date = date('Y-m-d', $timestamp);
+        $time = date('H:i:s', $timestamp);
+    
+        return view('parking_ticket', [
+            'date' => $date,
+            'time' => $time,
+            'ticketId' => $id,
+        ]);
     }
 }

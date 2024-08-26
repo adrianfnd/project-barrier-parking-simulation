@@ -68,6 +68,38 @@
                 opacity: 1;
             }
         }
+
+        /* Ticket styles */
+        #ticketModal .modal-dialog {
+            max-width: 300px;
+        }
+
+        .ticket {
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .ticket-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .ticket-content {
+            margin-bottom: 10px;
+        }
+
+        .ticket-barcode {
+            text-align: center;
+        }
+
+        .ticket-footer {
+            text-align: center;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -118,6 +150,19 @@
         </div>
     </div>
 
+     <!-- Ticket Modal -->
+     <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="ticketContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
     <script>
         function updateLogs() {
             $.get('/get-logs', function(data) {
@@ -163,6 +208,9 @@
             }, function(response) {
                 console.log('Ticket requested for Gate ' + gateNo);
                 updateLogs();
+                if (response.Status === 1 && response.TicketUrl) {
+                    window.open(response.TicketUrl, '_blank');
+                }
             });
         }
 

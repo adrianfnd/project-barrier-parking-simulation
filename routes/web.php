@@ -17,3 +17,4 @@ use App\Http\Controllers\BarrierController;
 
 Route::get('/', [BarrierController::class, 'index']);
 Route::get('/get-logs', [BarrierController::class, 'getLogs']);
+Route::get('/print-ticket/{id}/{timestamp}', [BarrierController::class, 'printTicket'])->name('print.ticket');
