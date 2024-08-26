@@ -22,11 +22,11 @@
             position: absolute;
             bottom: 0;
             transition: transform 0.5s;
+            transform-origin: left bottom;
         }
 
         .gate.open {
             transform: rotate(-90deg);
-            transform-origin: left bottom;
         }
 
         .road {
@@ -69,7 +69,6 @@
             }
         }
 
-        /* Ticket styles */
         #ticketModal .modal-dialog {
             max-width: 300px;
         }
@@ -110,7 +109,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h2 class="text-center">Gate 1</h2>
+                        <h2 class="text-center">Palang Parkir Masuk</h2>
                     </div>
                     <div class="card-body">
                         <div class="gate-container">
@@ -126,7 +125,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h2 class="text-center">Gate 2</h2>
+                        <h2 class="text-center">Palang Parkir Keluar</h2>
                     </div>
                     <div class="card-body">
                         <div class="gate-container">
@@ -135,7 +134,7 @@
                             <div id="sirene2" class="sirene"></div>
                         </div>
                         <div id="gate2Status" class="status-text">Ready</div>
-                        <button id="requestTicket2" class="btn btn-primary mt-2">Request Ticket</button>
+                        <p class="text-muted mt-2">Silakan scan tiket Anda ke Petugas Parkir untuk keluar.</p>
                     </div>
                 </div>
             </div>
